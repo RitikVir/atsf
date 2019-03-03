@@ -1,0 +1,8 @@
+<div style="border: 1px solid black" *ngIf="job">
+  <h5>JobId{{ job.jobId }}</h5>
+  <h6>Post {{ job.designation }} in {{ job.category }}</h6>
+  <p>Job Detail{{ job.description }}</p>
+  <p>Last date {{ job.lastDate }}</p>
+
+  <button type="button" (click)="jobDetail()">Check Detail</button>
+</div>

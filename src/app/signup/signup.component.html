@@ -1,0 +1,73 @@
+<form [formGroup]="formgroup" (ngSubmit)="onSubmit()">
+  <div class="container">
+    <label for="name">Name:</label>
+    <input type="text" id="name" formControlName="name" />
+  </div>
+  <div class="container">
+    <label for="email">Email:</label>
+    <input type="email" id="email" formControlName="email" />
+  </div>
+  <div class="container">
+    <label for="phoneNumber">Phone Number</label>
+    <input type="number" id="phoneNumber" formControlName="phoneNumber" />
+  </div>
+  <div class="container">
+    <label for="password">Password</label>
+    <input type="password" id="password" formControlName="password" />
+  </div>
+  <div class="container">
+    <label for="experienceMonth">Experience Month</label>
+    <input
+      type="number"
+      id="experienceMonth"
+      formControlName="experienceMonth"
+    />
+  </div>
+  <div class="container">
+    <label for="experienceYear">Experience Year</label>
+    <input type="number" id="experienceYear" formControlName="experienceYear" />
+  </div>
+
+  <form [formGroup]="employeerForm" (ngSubmit)="onEmployeerUpdate()">
+    <div class="container">
+      <input
+        type="text"
+        formControlName="prevEmployeer"
+        placeholder="Prev Org. Name"
+      />
+      <div class="container">
+        <label for="joiningDate">Joining</label>
+        <input type="date" id="joiningDate" formControlName="joiningDate" />
+      </div>
+      <div class="container">
+        <label for="leavingDate">Joining</label>
+        <input type="date" id="leavingDate" formControlName="leavingDate" />
+      </div>
+      <input
+        type="text"
+        formControlName="role"
+        placeholder="Role in that  Org. "
+      />
+      <button type="reset">Reset</button>
+      <button type="submit">Append employer Detail</button>
+    </div>
+  </form>
+  <form [formGroup]="educationalForm" (ngSubmit)="onEducationalUpdate()">
+    <div class="container">
+      <input type="text" formControlName="degree" placeholder="Enter Degree" />
+      <div class="container">
+        <label for="completionDate">Completion Date</label>
+        <input
+          type="date"
+          id="completionDate"
+          formControlName="completionDate"
+        />
+      </div>
+
+      <input type="text" formControlName="college" placeholder="college" />
+      <button type="reset">Reset</button>
+      <button type="submit">Append Educational Detail</button>
+    </div>
+  </form>
+  <button type="submit">Signup</button>
+</form>

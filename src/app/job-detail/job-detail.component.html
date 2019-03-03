@@ -1,0 +1,28 @@
+<div style="border: 1px solid black" *ngIf="job">
+  <h5>JobId{{ job.jobId }}</h5>
+  <h6>Post {{ job.designation }} in {{ job.category }}</h6>
+  <p>Job Detail{{ job.description }}</p>
+  <p>Last date {{ job.lastDate }}</p>
+  <p>Pay Scale: {{ job.paySalary }}</p>
+  <p>Location: {{ job.location }}</p>
+  <p>Bond Detail {{ job.bondDetail }}</p>
+  <p>
+    Experience Required {{ job.experienceMonth }} Months and
+    {{ job.experienceYear }} Year
+  </p>
+
+  <div *ngFor="let item of job.blockJobId">
+    <p>Block id's {{ item }}</p>
+  </div>
+  <div *ngFor="let item of job.skillsRequired; let i = index">
+    <p>item</p>
+    <p>SkillName {{ item.skillName }} SkillLevel {{ item.skillLevel }}</p>
+  </div>
+
+  <div *ngIf="job.isComplete">
+    <p>Process is Complete for this opening</p>
+  </div>
+  <button type="button" (click)="onSubmit()">
+    Apply
+  </button>
+</div>
