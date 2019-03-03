@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { appliedData, assignData, jobData, closeData } from './interfaces';
+import {
+  appliedData,
+  assignData,
+  jobData,
+  closeData,
+  appliedJobData
+} from './interfaces';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -29,7 +35,9 @@ export class GetappliedService {
   createNewJob(data: jobData): Observable<jobData> {
     return this.http.post<jobData>(this.url + 'admin/addjob', data);
   }
-  getAppliedJob(data: string): Observable<closeData[]> {
-    return this.http.get<closeData[]>(this.url + 'apply/candidate/' + data);
+  getAppliedJob(data: string): Observable<appliedJobData[]> {
+    return this.http.get<appliedJobData[]>(
+      this.url + 'apply/candidate/' + data
+    );
   }
 }

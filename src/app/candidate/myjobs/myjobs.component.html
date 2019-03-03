@@ -1,0 +1,9 @@
+<div *ngIf="appliedJobs">
+  <div style="border: 1px solid black" *ngFor="let appliedJob of appliedJobs">
+    <p>Job Id:{{ appliedJob.jobId._id }}</p>
+    <p>Category:{{ appliedJob.jobId.category }}</p>
+    <p>Designation: {{ appliedJob.jobId.designation }}</p>
+    <p>Description: {{ appliedJob.jobId.description }}</p>
+    <p>Designation:{{ appliedJob.status }}</p>
+  </div>
+</div>

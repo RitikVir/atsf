@@ -11,6 +11,7 @@ import { AuthService } from '../auth.service';
 })
 export class InterviewerComponent implements OnInit {
   allInterviewerSchedule: scheduleData[];
+  comment: string;
 
   constructor(
     private getAllScheduleService: GetScheduleService,
@@ -27,6 +28,9 @@ export class InterviewerComponent implements OnInit {
       .subscribe(data => (this.allInterviewerSchedule = data));
     console.log(interviewerInfo);
   }
+  commentChanged(event) {
+    this.comment = event.target.value;
+  }
   rejectSchedule(event, schedule) {
     this.getAllScheduleService
       .rejectSchedule(
@@ -41,6 +45,21 @@ export class InterviewerComponent implements OnInit {
     );
     this.getAllAppliedService.closeApplication(closeInfo).subscribe(data => {
       console.log('Application status Changed');
+    });
+  }
+  submitResponse(event, schedule) {
+    schedule.comment = this.comment;
+    this.getAllScheduleService
+      .submitResponse(schedule)
+      .subscribe(data => console.log(data));
+
+    const closeInfo = new closeData(
+      schedule.candidateId,
+      schedule.jobId,
+      'InterviewToBeScheduled'
+    );
+    this.getAllAppliedService.closeApplication(closeInfo).subscribe(data => {
+      console.log('Application status changed');
     });
   }
 }

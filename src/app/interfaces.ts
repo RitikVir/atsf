@@ -41,6 +41,7 @@ export interface jobData {
   isComplete: Boolean;
 }
 export interface scheduleData {
+  _id: string;
   candidateId: string;
   jobId: string;
   date: Date;
@@ -59,16 +60,27 @@ export class closeData {
     public closeStatus: string
   ) {}
 }
+export interface appliedJobData {
+  jobId: {
+    _id: string;
+    category: string;
+    designation: string;
+    description: string;
+  };
+  candidateId: string;
+  status: string;
+}
 export interface appliedData {
   candidateId: {
     _id: string;
     name: string;
     email: string;
   };
-  interviewerId: string;
+  jobId: string;
   status: string;
 }
 export interface candidateData {
+  _id: string;
   name: String;
   email: String;
   password: String;

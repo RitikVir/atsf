@@ -24,4 +24,10 @@ export class GetScheduleService {
   rejectSchedule(data: string) {
     return this.http.get<scheduleData>(data);
   }
+  submitResponse(data: scheduleData) {
+    return this.http.post<scheduleData>(
+      `http://localhost:8000/api/schedule/submitresponse`,
+      data
+    );
+  }
 }

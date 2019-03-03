@@ -1,11 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormControl } from "@angular/forms";
-import { GetCandidateService } from "../get-candidate.service";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { GetCandidateService } from '../get-candidate.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: "app-signup",
-  templateUrl: "./signup.component.html",
-  styleUrls: ["./signup.component.css"]
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
   formgroup = new FormGroup({
@@ -14,7 +15,9 @@ export class SignupComponent implements OnInit {
     password: new FormControl(),
     phoneNumber: new FormControl(),
     experienceMonth: new FormControl(),
-    experienceYear: new FormControl()
+    experienceYear: new FormControl(),
+    defaultResumeLink: new FormControl(),
+    video: new FormControl()
   });
   employeerForm = new FormGroup({
     prevEmployeer: new FormControl(),
@@ -42,7 +45,10 @@ export class SignupComponent implements OnInit {
       college: String;
     }
   ];
-  constructor(private getAllCandidateService: GetCandidateService) {}
+  constructor(
+    private getAllCandidateService: GetCandidateService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
     this.employeer;
@@ -69,6 +75,20 @@ export class SignupComponent implements OnInit {
     candidateProfile.educational = this.educational;
     this.getAllCandidateService
       .createNewCandidate(candidateProfile)
-      .subscribe(data => {});
+      .subscribe(data => {
+        const formData = new FormData();
+        formData.append(
+          'defaultresumelink',
+          this.formgroup.get('defaultResumeLink').value
+        );
+        formData.append('video', this.formgroup.get('video').value);
+        formData.append('userId', data._id);
+        this.getAllCandidateService
+          .addUploadsToCandidate(formData)
+          .subscribe(response => {
+            console.log(response);
+            this.toastr.success('Candidate Added');
+          });
+      });
   }
 }

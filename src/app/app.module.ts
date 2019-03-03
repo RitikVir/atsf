@@ -14,13 +14,15 @@ import { GetInterviewerService } from './get-interviewer.service';
 import { GetjobService } from './getjob.service';
 import { AddCategoryComponent } from './admin/add-category/add-category.component';
 import { AddDesignationComponent } from './admin/add-designation/add-designation.component';
-import { JobCardComponent } from './job-card/job-card.component';
-import { JobAllComponent } from './job-all/job-all.component';
+import { JobCardComponent } from './candidate/job-card/job-card.component';
+import { JobAllComponent } from './candidate/job-all/job-all.component';
 import { JobDetailComponent } from './job-detail/job-detail.component';
 import { LoginComponent } from './login/login.component';
 import { ScheduleInterviewComponent } from './admin/schedule-interview/schedule-interview.component';
 import { InterviewerComponent } from './interviewer/interviewer.component';
-import { MyjobsComponent } from './myjobs/myjobs.component';
+import { MyjobsComponent } from './candidate/myjobs/myjobs.component';
+import { CandidateComponent } from './candidate/candidate.component';
+import { ToastrService, Toast, ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -37,15 +39,22 @@ import { MyjobsComponent } from './myjobs/myjobs.component';
     LoginComponent,
     ScheduleInterviewComponent,
     InterviewerComponent,
-    MyjobsComponent
+    MyjobsComponent,
+    CandidateComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     AppRouterModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot()
   ],
-  providers: [GetCategoryService, GetInterviewerService, GetjobService],
+  providers: [
+    GetCategoryService,
+    GetInterviewerService,
+    GetjobService,
+    ToastrService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -7,12 +7,14 @@ import { AddJobComponent } from '../admin/add-job/add-job.component';
 import { AddCategoryComponent } from '../admin/add-category/add-category.component';
 import { AddDesignationComponent } from '../admin/add-designation/add-designation.component';
 import { SignupComponent } from '../signup/signup.component';
-import { JobAllComponent } from '../job-all/job-all.component';
+import { JobAllComponent } from '../candidate/job-all/job-all.component';
 import { JobDetailComponent } from '../job-detail/job-detail.component';
 import { LoginComponent } from '../login/login.component';
 import { ScheduleInterviewComponent } from '../admin/schedule-interview/schedule-interview.component';
 import { RoleGuardService } from '../role-guard.service';
 import { InterviewerComponent } from '../interviewer/interviewer.component';
+import { MyjobsComponent } from '../candidate/myjobs/myjobs.component';
+import { CandidateComponent } from '../candidate/candidate.component';
 
 const routes: Routes = [
   {
@@ -33,10 +35,14 @@ const routes: Routes = [
     component: SignupComponent
   },
   {
-    path: 'job',
-    component: JobAllComponent,
+    path: 'candidate',
+    component: CandidateComponent,
     canActivate: [RoleGuardService],
-    data: { expectedRole: 'candidate' }
+    data: { expectedRole: 'candidate' },
+    children: [
+      { path: 'job', component: JobAllComponent },
+      { path: 'myjobs', component: MyjobsComponent }
+    ]
   },
   {
     path: 'job/:id',
