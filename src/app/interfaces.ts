@@ -50,6 +50,19 @@ export interface scheduleData {
   interviewerId: string;
   status: string;
 }
+export interface scheduleInterviewerPopulateData {
+  _id: string;
+  candidateId: string;
+  jobId: string;
+  date: Date;
+  time: number;
+  comment: string;
+  interviewerId: {
+    _id: string;
+    email: string;
+  };
+  status: string;
+}
 export class assignData {
   constructor(public candidateId: string, public jobId: string) {}
 }
@@ -58,6 +71,20 @@ export class closeData {
     public candidateId: string,
     public jobId: string,
     public closeStatus: string
+  ) {}
+}
+export interface otpData {
+  userId: string;
+  role: string;
+  type: string;
+  valueOtp: string;
+  timestamp: Date;
+}
+export class genOtp {
+  constructor(
+    public userId: string,
+    public role: string,
+    public type: string
   ) {}
 }
 export interface appliedJobData {
@@ -87,10 +114,9 @@ export interface candidateData {
   phoneNumber: Number;
   experienceMonth: Number;
   experienceYear: Number;
-  isVerified: {
-    otp: Boolean;
-    email: Boolean;
-  };
+  isVerifiedOtp: Boolean;
+  isVerifiedEmail: Boolean;
+
   employeer: [
     {
       prevEmployeer: String;
@@ -110,4 +136,5 @@ export interface candidateData {
   resumeLink: String[];
   video: String;
   isActive: Boolean;
+  applied: string[];
 }

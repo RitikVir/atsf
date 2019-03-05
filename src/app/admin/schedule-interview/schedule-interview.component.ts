@@ -4,7 +4,8 @@ import {
   interviewerData,
   scheduleData,
   assignData,
-  closeData
+  closeData,
+  scheduleInterviewerPopulateData
 } from 'src/app/interfaces';
 import { categoryData, appliedData } from '../../interfaces';
 import { GetjobService } from '../../getjob.service';
@@ -13,6 +14,7 @@ import { GetInterviewerService } from '../../get-interviewer.service';
 import { GetappliedService } from '../../getapplied.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { GetScheduleService } from '../../get-schedule.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-schedule-interview',
@@ -35,13 +37,14 @@ export class ScheduleInterviewComponent implements OnInit {
   profile: categoryData[];
   interviewers: interviewerData[];
   scheduleInfo: scheduleData;
-  interviewsDone: scheduleData[];
+  interviewsDone: scheduleInterviewerPopulateData[];
   constructor(
     private getAllJobService: GetjobService,
     private getAllAppliedService: GetappliedService,
     private getAllCategoryService: GetCategoryService,
     private getAllInterviewerService: GetInterviewerService,
-    private getAllScheduleService: GetScheduleService
+    private getAllScheduleService: GetScheduleService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -121,8 +124,10 @@ export class ScheduleInterviewComponent implements OnInit {
     // this.assignInfo.candidateId = this.formgroup.value.candidateId;
     // this.assignInfo.jobId = this.formgroup.value.jobId;
 
-    this.getAllAppliedService
-      .interviewAssigned(assignInfo)
-      .subscribe(data => console.log('status changed'));
+    this.getAllAppliedService.interviewAssigned(assignInfo).subscribe(data => {
+      if (data.status == 'true') {
+        this.toastr.success('Interview Scheduled');
+      }
+    });
   }
 }

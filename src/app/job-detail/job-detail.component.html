@@ -2,7 +2,7 @@
   <h5>JobId{{ job.jobId }}</h5>
   <h6>Post {{ job.designation }} in {{ job.category }}</h6>
   <p>Job Detail{{ job.description }}</p>
-  <p>Last date {{ job.lastDate }}</p>
+  <p>Last date {{ job.lastDate | date }}</p>
   <p>Pay Scale: {{ job.paySalary }}</p>
   <p>Location: {{ job.location }}</p>
   <p>Bond Detail {{ job.bondDetail }}</p>

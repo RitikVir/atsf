@@ -13,7 +13,15 @@ export class GetCandidateService {
   createNewCandidate(data: candidateData): Observable<candidateData> {
     return this.http.post<candidateData>(this.url + '/candidate/signup', data);
   }
-  addUploadsToCandidate(uploads) {
-    return this.http.post(this.url + `/candidate/add/uploads`, uploads);
+  addUploadsToCandidate(uploads, userId) {
+    return this.http.post(
+      this.url + `/candidate/add/uploads/${userId}`,
+      uploads
+    );
+  }
+  myProfile(data: string) {
+    return this.http.get<candidateData>(
+      this.url + `/candidate/myprofile/` + data
+    );
   }
 }

@@ -1,12 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormControl } from "@angular/forms";
-import { categoryData, genreData } from "../../interfaces";
-import { GetCategoryService } from "../../get-category.service";
-import { GetjobService } from "../../getjob.service";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { categoryData, genreData } from '../../interfaces';
+import { GetCategoryService } from '../../get-category.service';
+import { GetjobService } from '../../getjob.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
-  selector: "app-add-designation",
-  templateUrl: "./add-designation.component.html",
-  styleUrls: ["./add-designation.component.css"]
+  selector: 'app-add-designation',
+  templateUrl: './add-designation.component.html',
+  styleUrls: ['./add-designation.component.css']
 })
 export class AddDesignationComponent implements OnInit {
   formgroup = new FormGroup({
@@ -17,7 +18,8 @@ export class AddDesignationComponent implements OnInit {
 
   constructor(
     private getAllCategoryService: GetCategoryService,
-    private getAllJobService: GetjobService
+    private getAllJobService: GetjobService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -28,6 +30,8 @@ export class AddDesignationComponent implements OnInit {
   onSubmit() {
     this.getAllJobService
       .createNewDesignation(this.formgroup.value)
-      .subscribe();
+      .subscribe(data => {
+        if (data.status == 'true') this.toastr.success('Designation Added');
+      });
   }
 }

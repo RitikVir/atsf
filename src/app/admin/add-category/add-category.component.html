@@ -1,10 +1,18 @@
-<form [formGroup]="formgroup" (ngSubmit)="onSubmit()">
-  <input
-    type="text"
-    placeholder="Enter New Category Name"
-    formControlName="category"
-  />
-  <div class="container">
-    <button type="submit">Add Category</button>
-  </div>
-</form>
+<div class="container">
+  <form [formGroup]="formgroup" (ngSubmit)="onSubmit()">
+    <br /><br />
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <input
+        class="form-control"
+        type="text"
+        placeholder="Enter New Category Name"
+        formControlName="category"
+      />
+    </div>
+    <br /><br />
+    <div class="row">
+      <button type="submit" class="secondary-button">Add Category</button>
+    </div>
+  </form>
+</div>

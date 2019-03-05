@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { loginData, loginDetailData } from '../interfaces';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,11 @@ export class LoginComponent implements OnInit {
     password: new FormControl()
   });
 
-  constructor(private router: Router, private getAuthService: AuthService) {}
+  constructor(
+    private router: Router,
+    private getAuthService: AuthService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
     let data = this.getAuthService.userInfo();
@@ -43,6 +48,8 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/candidate']);
       } else if (data.role === 'interviewer') {
         this.router.navigate(['/interviewer']);
+      } else {
+        this.toastr.error('Invalid credentials');
       }
     });
   }

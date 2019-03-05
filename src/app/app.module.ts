@@ -23,6 +23,10 @@ import { InterviewerComponent } from './interviewer/interviewer.component';
 import { MyjobsComponent } from './candidate/myjobs/myjobs.component';
 import { CandidateComponent } from './candidate/candidate.component';
 import { ToastrService, Toast, ToastrModule } from 'ngx-toastr';
+import { ProfileComponent } from './profile/profile.component';
+import { SafePipePipe } from './safe.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OtpVerifyComponent } from './otp-verify/otp-verify.component';
 
 @NgModule({
   declarations: [
@@ -40,21 +44,22 @@ import { ToastrService, Toast, ToastrModule } from 'ngx-toastr';
     ScheduleInterviewComponent,
     InterviewerComponent,
     MyjobsComponent,
-    CandidateComponent
+    CandidateComponent,
+    ProfileComponent,
+    SafePipePipe,
+    OtpVerifyComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     AppRouterModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 1000
+    })
   ],
-  providers: [
-    GetCategoryService,
-    GetInterviewerService,
-    GetjobService,
-    ToastrService
-  ],
+  providers: [GetCategoryService, GetInterviewerService, GetjobService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -14,7 +14,9 @@ import { ScheduleInterviewComponent } from '../admin/schedule-interview/schedule
 import { RoleGuardService } from '../role-guard.service';
 import { InterviewerComponent } from '../interviewer/interviewer.component';
 import { MyjobsComponent } from '../candidate/myjobs/myjobs.component';
+import { ProfileComponent } from '../profile/profile.component';
 import { CandidateComponent } from '../candidate/candidate.component';
+import { OtpVerifyComponent } from '../otp-verify/otp-verify.component';
 
 const routes: Routes = [
   {
@@ -35,6 +37,14 @@ const routes: Routes = [
     component: SignupComponent
   },
   {
+    path: 'candidate/myprofile/:id',
+    component: ProfileComponent
+  },
+  {
+    path: 'user/otpverify',
+    component: OtpVerifyComponent
+  },
+  {
     path: 'candidate',
     component: CandidateComponent,
     canActivate: [RoleGuardService],
@@ -46,9 +56,7 @@ const routes: Routes = [
   },
   {
     path: 'job/:id',
-    component: JobDetailComponent,
-    canActivate: [RoleGuardService],
-    data: { expectedRole: 'candidate' }
+    component: JobDetailComponent
   },
   {
     path: 'interviewer',

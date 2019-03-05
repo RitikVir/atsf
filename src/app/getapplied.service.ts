@@ -25,8 +25,8 @@ export class GetappliedService {
   applyForJob(data: assignData) {
     return this.http.post<appliedData>(this.url + 'apply/', data);
   }
-  interviewAssigned(data: assignData): Observable<appliedData> {
-    return this.http.post<appliedData>(this.url + 'apply/assign', data);
+  interviewAssigned(data: assignData): Observable<{ status }> {
+    return this.http.post<{ status }>(this.url + 'apply/assign', data);
   }
   closeApplication(data: closeData): Observable<appliedData> {
     return this.http.post<appliedData>(this.url + 'apply/assign/close', data);

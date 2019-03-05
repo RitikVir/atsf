@@ -1,0 +1,21 @@
+<div *ngIf="myProfile">
+  <p>Hey {{ myProfile.name }}</p>
+  <p>Email {{ myProfile.email }}</p>
+  <p>Phone Number {{ myProfile.phoneNumber }}</p>
+  <p>Experience Month {{ myProfile.experienceMonth }}</p>
+  <p>Experience Year {{ myProfile.experienceYear }}</p>
+  <p *ngIf="myProfile.employeer">Previous Employeer of :</p>
+  <div *ngFor="let item of myProfile.employeer">
+    <h4>{{ item.prevEmployeer }}</h4>
+    <p>From {{ item.joiningDate | date }} to {{ item.leavingDate | date }}</p>
+    <p>Role {{ item.role }}</p>
+  </div>
+  <div *ngFor="let item of myProfile.educational">
+    <h4>Degree {{ item.degree }}</h4>
+    <p>Completion Date: {{ item.completionDate }}</p>
+    <p>College: {{ item.college }}</p>
+  </div>
+  <iframe [src]="getFileUrl(myProfile.defaultResumeLink) | safe"></iframe>
+  <iframe [src]="getFileUrl(myProfile.video) | safe"></iframe>
+</div>
+<!-- defaultResumeLink: { type: String }, video: { type: String }, -->

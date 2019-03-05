@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { scheduleData, closeData } from '../interfaces';
+import { scheduleData, closeData, candidateData } from '../interfaces';
 import { GetScheduleService } from '../get-schedule.service';
 import { GetappliedService } from '../getapplied.service';
+import { GetCandidateService } from '../get-candidate.service';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-interviewer',
@@ -12,11 +14,14 @@ import { AuthService } from '../auth.service';
 export class InterviewerComponent implements OnInit {
   allInterviewerSchedule: scheduleData[];
   comment: string;
+  myProfile: candidateData;
 
   constructor(
     private getAllScheduleService: GetScheduleService,
     private auth: AuthService,
-    private getAllAppliedService: GetappliedService
+    private getAllAppliedService: GetappliedService,
+    private getAllCandidateService: GetCandidateService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -25,8 +30,14 @@ export class InterviewerComponent implements OnInit {
       .getInterviewerSchedule(
         'http://localhost:8000/api/schedule/' + interviewerInfo.userId
       )
-      .subscribe(data => (this.allInterviewerSchedule = data));
-    console.log(interviewerInfo);
+      .subscribe(data => {
+        this.allInterviewerSchedule = data;
+        console.log('interviewer schedule ', this.allInterviewerSchedule);
+      });
+  }
+  seeProfile(event, candidateId) {
+    console.log('my id ', candidateId);
+    this.router.navigate(['/candidate/myprofile/' + candidateId]);
   }
   commentChanged(event) {
     this.comment = event.target.value;

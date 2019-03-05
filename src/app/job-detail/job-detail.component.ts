@@ -4,6 +4,7 @@ import { GetjobService } from '../getjob.service';
 import { GetappliedService } from '../getapplied.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-job-detail',
@@ -15,7 +16,8 @@ export class JobDetailComponent implements OnInit {
     private getAllJobService: GetjobService,
     private route: ActivatedRoute,
     private getAllAppliedService: GetappliedService,
-    private auth: AuthService
+    private auth: AuthService,
+    private toastr: ToastrService
   ) {}
   jobId: string;
   job: jobData;
@@ -33,7 +35,11 @@ export class JobDetailComponent implements OnInit {
 
     const assignInfo = new assignData(candidateId.userId, this.jobId);
     this.getAllAppliedService.applyForJob(assignInfo).subscribe(data => {
-      console.log(data);
+      if (data.status === 'applied') {
+        this.toastr.success('Applied Successfully');
+      } else {
+        this.toastr.error('Already applied for similar profile recently');
+      }
     });
   }
 }

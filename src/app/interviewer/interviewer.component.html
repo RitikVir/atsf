@@ -1,11 +1,18 @@
-<div *ngFor="let item of allInterviewerSchedule">
-  <p>{{ item.jobId }} {{ item.date | date }} {{ item.status }}</p>
-  <label for="comment">Enter Interview result Here</label>
-  <textarea id="comment" (change)="commentChanged($event)"></textarea>
-  <button type="button" (click)="submitResponse($event, item)">
-    Submit Response
-  </button>
-  <button type="button" (click)="rejectSchedule($event, item)">
-    Reject
-  </button>
+<div *ngIf="allInterviewerSchedule">
+  <div *ngFor="let item of allInterviewerSchedule">
+    <a [routerLink]="['/job/' + item.jobId]">{{ item.jobId }}</a>
+    <p>{{ item.date | date }} {{ item.status }}</p>
+
+    <button type="button" (click)="seeProfile($event, item.candidateId)">
+      Check Profile
+    </button>
+    <label for="comment">Enter Interview result Here</label>
+    <textarea id="comment" (change)="commentChanged($event)"></textarea>
+    <button type="button" (click)="submitResponse($event, item)">
+      Submit Response
+    </button>
+    <button type="button" (click)="rejectSchedule($event, item)">
+      Reject
+    </button>
+  </div>
 </div>

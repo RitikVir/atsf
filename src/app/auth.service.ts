@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { loginData, loginDetailData } from './interfaces';
+import { loginData, loginDetailData, otpData, genOtp } from './interfaces';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 const helper = new JwtHelperService();
 
@@ -17,6 +18,9 @@ export class AuthService {
       .post<loginDetailData>(`${this.url}/auth/login`, loginInfo)
       .pipe(
         map(data => {
+          if (!data.token) {
+            return data;
+          }
           const token = JSON.stringify(data.token);
           const decode = helper.decodeToken(token);
           if (token) {
@@ -25,6 +29,14 @@ export class AuthService {
           return decode;
         })
       );
+  }
+  sendOtp(data: genOtp): Observable<otpData> {
+    return this.http.post<otpData>(`${this.url}/candidate/otpgen/`, data);
+  }
+  matchOtp(data: string): Observable<{ status: string }> {
+    return this.http.get<{ status: string }>(
+      `${this.url}/candidate/otpverify/${data}`
+    );
   }
 
   public isAuthenticated(): boolean {

@@ -1,6 +1,13 @@
-<a [routerLink]="['/admin/addinterviewer']">Add Interviewer</a>
-<a [routerLink]="['/admin//addjob']">Add Job</a>
-<a [routerLink]="['/admin/addcategory']">Add Category</a>
-<a [routerLink]="['/admin/adddesignation']">Add Designation</a>
-<a [routerLink]="['/admin/scheduleinterview']">Schedule Interview</a>
-<router-outlet></router-outlet>
+<div class="navbar">
+  <ul>
+    <li><a [routerLink]="['/admin/addinterviewer']">Add Interviewer</a></li>
+    <li><a [routerLink]="['/admin//addjob']">Add Job</a></li>
+    <li><a [routerLink]="['/admin/addcategory']">Add Category</a></li>
+    <li><a [routerLink]="['/admin/adddesignation']">Add Designation</a></li>
+    <li>
+      <a [routerLink]="['/admin/scheduleinterview']">Schedule Interview</a>
+    </li>
+    <li><a [routerLink]="['#']">Log Out</a></li>
+  </ul>
+  <router-outlet></router-outlet>
+</div>

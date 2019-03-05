@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { scheduleData } from './interfaces';
+import { scheduleData, scheduleInterviewerPopulateData } from './interfaces';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class GetScheduleService {
     );
   }
   getCandidateHistory(data: string) {
-    return this.http.get<scheduleData[]>(data);
+    return this.http.get<scheduleInterviewerPopulateData[]>(data);
   }
   getInterviewerSchedule(data: string) {
     return this.http.get<scheduleData[]>(data);
