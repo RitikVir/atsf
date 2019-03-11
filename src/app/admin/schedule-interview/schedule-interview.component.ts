@@ -12,7 +12,7 @@ import { GetjobService } from '../../getjob.service';
 import { GetCategoryService } from '../../get-category.service';
 import { GetInterviewerService } from '../../get-interviewer.service';
 import { GetappliedService } from '../../getapplied.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GetScheduleService } from '../../get-schedule.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -25,11 +25,11 @@ export class ScheduleInterviewComponent implements OnInit {
   jobs: jobData[];
   appliedInfo: appliedData[];
   formgroup = new FormGroup({
-    jobId: new FormControl(),
-    candidateId: new FormControl(),
-    interviewerId: new FormControl(),
-    time: new FormControl(),
-    date: new FormControl()
+    jobId: new FormControl('', [Validators.required]),
+    candidateId: new FormControl('', [Validators.required]),
+    interviewerId: new FormControl('', [Validators.required]),
+    time: new FormControl('', [Validators.required]),
+    date: new FormControl('', [Validators.required])
   });
 
   category: categoryData[];
@@ -38,6 +38,7 @@ export class ScheduleInterviewComponent implements OnInit {
   interviewers: interviewerData[];
   scheduleInfo: scheduleData;
   interviewsDone: scheduleInterviewerPopulateData[];
+  date: any;
   constructor(
     private getAllJobService: GetjobService,
     private getAllAppliedService: GetappliedService,
@@ -52,6 +53,7 @@ export class ScheduleInterviewComponent implements OnInit {
     this.getAllCategoryService.getAllCategory().subscribe(data => {
       this.category = data;
     });
+    this.date = new Date().toISOString().substr(0, 10);
   }
   jobSelected(event) {
     this.getAllAppliedService
@@ -127,6 +129,7 @@ export class ScheduleInterviewComponent implements OnInit {
     this.getAllAppliedService.interviewAssigned(assignInfo).subscribe(data => {
       if (data.status == 'true') {
         this.toastr.success('Interview Scheduled');
+        this.formgroup.reset();
       }
     });
   }

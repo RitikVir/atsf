@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { genOtp } from '../interfaces';
 import { ToastrService } from 'ngx-toastr';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-otp-verify',
   templateUrl: './otp-verify.component.html',
@@ -11,10 +11,12 @@ import { ToastrService } from 'ngx-toastr';
 export class OtpVerifyComponent implements OnInit {
   constructor(
     private getAllAuthService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {}
   valueOtp: string;
   ngOnInit() {
+    window.alert('Plz verify your phone Number to proceed further');
     console.log(this.getAllAuthService.userInfo);
     // this.otpInfo.userId=this.getAllAuthService.userInfo.userId
   }
@@ -28,6 +30,11 @@ export class OtpVerifyComponent implements OnInit {
     this.getAllAuthService.sendOtp(otpInfo).subscribe(data => {
       console.log(data);
     });
+    // this.getAllAuthService.emailGenerate().subscribe(response => {
+    //   if (response.status === 'true') {
+    //     this.toastr.success('Email Sent for verification');
+    //   }
+    // });
   }
   otpEvent(event) {
     this.valueOtp = event.target.value;
@@ -39,7 +46,9 @@ export class OtpVerifyComponent implements OnInit {
         if (data.status == 'false') {
           this.toastr.error('Incorrect Otp');
         } else {
-          this.toastr.success('Matched Successfully');
+          this.toastr.success('Matched Successfully Plz Login Again');
+          localStorage.removeItem('token');
+          this.router.navigate(['/login']);
         }
       });
   }

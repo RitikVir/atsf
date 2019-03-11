@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { categoryData, genreData } from '../../interfaces';
 import { GetCategoryService } from '../../get-category.service';
 import { GetjobService } from '../../getjob.service';
@@ -11,8 +11,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AddDesignationComponent implements OnInit {
   formgroup = new FormGroup({
-    category: new FormControl(),
-    designation: new FormControl()
+    category: new FormControl('', [Validators.required]),
+    designation: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2)
+    ])
   });
   category: categoryData[];
 
@@ -31,7 +34,8 @@ export class AddDesignationComponent implements OnInit {
     this.getAllJobService
       .createNewDesignation(this.formgroup.value)
       .subscribe(data => {
-        if (data.status == 'true') this.toastr.success('Designation Added');
+        if (data.status === 'true') this.toastr.success('Designation Added');
+        this.formgroup.reset();
       });
   }
 }

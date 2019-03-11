@@ -27,6 +27,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SafePipePipe } from './safe.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OtpVerifyComponent } from './otp-verify/otp-verify.component';
+import { EmailverifyComponent } from './emailverify/emailverify.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { OtpVerifyComponent } from './otp-verify/otp-verify.component';
     CandidateComponent,
     ProfileComponent,
     SafePipePipe,
-    OtpVerifyComponent
+    OtpVerifyComponent,
+    EmailverifyComponent
   ],
   imports: [
     BrowserModule,

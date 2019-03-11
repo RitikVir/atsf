@@ -38,6 +38,20 @@ export class AuthService {
       `${this.url}/candidate/otpverify/${data}`
     );
   }
+  emailGenerate(): Observable<{ status: string }> {
+    console.log('@@@####@@@');
+    console.log(this.userInfo());
+    return this.http.post<{ status: string }>(
+      `${this.url}/candidate/emailgen`,
+      { userId: this.userInfo().userId }
+    );
+  }
+
+  emailVerify(data: string): Observable<{ status: string }> {
+    return this.http.get<{ status: string }>(
+      `${this.url}/candidate/emailverify/${data}`
+    );
+  }
 
   public isAuthenticated(): boolean {
     const token = localStorage.getItem('token');

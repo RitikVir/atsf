@@ -5,6 +5,7 @@ import { GetappliedService } from '../getapplied.service';
 import { GetCandidateService } from '../get-candidate.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-interviewer',
@@ -21,7 +22,8 @@ export class InterviewerComponent implements OnInit {
     private auth: AuthService,
     private getAllAppliedService: GetappliedService,
     private getAllCandidateService: GetCandidateService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -56,6 +58,7 @@ export class InterviewerComponent implements OnInit {
     );
     this.getAllAppliedService.closeApplication(closeInfo).subscribe(data => {
       console.log('Application status Changed');
+      this.toastr.error('Rejected');
     });
   }
   submitResponse(event, schedule) {
@@ -71,6 +74,11 @@ export class InterviewerComponent implements OnInit {
     );
     this.getAllAppliedService.closeApplication(closeInfo).subscribe(data => {
       console.log('Application status changed');
+      this.toastr.success('Submitted');
     });
+  }
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }

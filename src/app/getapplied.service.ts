@@ -36,6 +36,8 @@ export class GetappliedService {
     return this.http.post<jobData>(this.url + 'admin/addjob', data);
   }
   getAppliedJob(data: string): Observable<appliedJobData[]> {
+    console.log(data);
+    console.log('cane to g a s');
     return this.http.get<appliedJobData[]>(
       this.url + 'apply/candidate/' + data
     );

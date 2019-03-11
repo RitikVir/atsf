@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { jobData, assignData } from '../interfaces';
 import { GetjobService } from '../getjob.service';
 import { GetappliedService } from '../getapplied.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -15,20 +15,32 @@ export class JobDetailComponent implements OnInit {
   constructor(
     private getAllJobService: GetjobService,
     private route: ActivatedRoute,
+    private router: Router,
     private getAllAppliedService: GetappliedService,
     private auth: AuthService,
     private toastr: ToastrService
   ) {}
   jobId: string;
   job: jobData;
-
+  canApply: boolean;
   ngOnInit() {
     this.jobId = this.route.snapshot.paramMap.get('id');
     console.log(this.jobId);
     this.getAllJobService.getDetailOfJob(this.jobId).subscribe(data => {
       this.job = data;
       console.log(this.job);
+      this.canApply = false;
+      if (this.auth.userInfo().role === 'candidate') {
+        this.canApply = true;
+      }
     });
+  }
+  login() {
+    this.router.navigate(['/login']);
+  }
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
   onSubmit() {
     const candidateId = this.auth.userInfo();

@@ -5,7 +5,7 @@
         <h1 class="text-center">Log In</h1>
       </div>
       <div class="fadeIn second"></div>
-      <label for="email">Email</label>
+      <label for="email">Email <b style="color:red">*</b></label>
       <br />
       <input
         type="text"
@@ -14,8 +14,25 @@
         class="fadeIn second"
         required
       />
+      <div
+        [ngClass]="{
+          'has-error':
+            formgroup.get('email').errors && formgroup.get('email').touched
+        }"
+      >
+        <span
+          class="help-block"
+          *ngIf="
+            formgroup.get('email').errors && formgroup.get('email').touched
+          "
+        >
+          <span *ngIf="formgroup.get('email').errors">
+            Enter email
+          </span>
+        </span>
+      </div>
       <br />
-      <label for="pwd">Password</label>
+      <label for="pwd">Password <b style="color:red">*</b></label>
       <br />
       <input
         id="pwd"
@@ -23,7 +40,31 @@
         class="fadeIn third additional"
         type="password"
       />
-      <input type="submit" class="fadeIn fourth" value="Log In" />
+      <div
+        [ngClass]="{
+          'has-error':
+            formgroup.get('password').errors &&
+            formgroup.get('password').touched
+        }"
+      >
+        <span
+          class="help-block"
+          *ngIf="
+            formgroup.get('password').errors &&
+            formgroup.get('password').touched
+          "
+        >
+          <span *ngIf="formgroup.get('password').errors">
+            Too Short Password
+          </span>
+        </span>
+      </div>
+      <input
+        type="submit"
+        class="fadeIn fourth"
+        [disabled]="!this.formgroup.valid"
+        value="Log In"
+      />
       <input
         type="button"
         (click)="signup()"

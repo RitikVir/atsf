@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GetCandidateService } from '../get-candidate.service';
+import { AuthService } from '../auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -10,10 +12,16 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SignupComponent implements OnInit {
   formgroup = new FormGroup({
-    name: new FormControl(),
-    email: new FormControl(),
-    password: new FormControl(),
-    phoneNumber: new FormControl(),
+    name: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2)
+    ]),
+    phoneNumber: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10)
+    ]),
     experienceMonth: new FormControl(),
     experienceYear: new FormControl(),
     defaultResumeLink: new FormControl(),
@@ -47,7 +55,9 @@ export class SignupComponent implements OnInit {
   ];
   constructor(
     private getAllCandidateService: GetCandidateService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private auth: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -69,7 +79,6 @@ export class SignupComponent implements OnInit {
     }
   }
   resumeChanged(event) {
-    this.toastr.success('UTH GYI!');
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.formgroup.get('defaultResumeLink').setValue(file);
@@ -82,6 +91,9 @@ export class SignupComponent implements OnInit {
       this.formgroup.get('video').setValue(file);
       console.log(this.formgroup.get('video').value);
     }
+  }
+  login() {
+    this.router.navigate(['/login']);
   }
   onSubmit() {
     let candidateProfile = this.formgroup.value;

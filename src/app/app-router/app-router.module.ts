@@ -17,6 +17,8 @@ import { MyjobsComponent } from '../candidate/myjobs/myjobs.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { CandidateComponent } from '../candidate/candidate.component';
 import { OtpVerifyComponent } from '../otp-verify/otp-verify.component';
+import { EmailverifyComponent } from '../emailverify/emailverify.component';
+import { AuthguardServiceService } from '../authguard-service.service';
 
 const routes: Routes = [
   {
@@ -35,6 +37,10 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignupComponent
+  },
+  {
+    path: 'emailverify/:id',
+    component: EmailverifyComponent
   },
   {
     path: 'candidate/myprofile/:id',
@@ -66,7 +72,12 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [AuthguardServiceService]
+  },
+  {
+    path: '**',
+    redirectTo: '/login'
   }
 ];
 @NgModule({

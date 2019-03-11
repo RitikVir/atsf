@@ -18,10 +18,15 @@ export class RoleGuardService implements CanActivate {
     const tokenPayLoad = helper.decodeToken(token);
 
     if (
-      !(
-        this.authService.isAuthenticated() && tokenPayLoad.role === expectedRole
-      )
+      this.authService.isAuthenticated() &&
+      tokenPayLoad.role === expectedRole
     ) {
+      console.log('Otp status', tokenPayLoad.isVerifiedOtp);
+      if (tokenPayLoad.role === 'candidate' && !tokenPayLoad.isVerifiedOtp) {
+        console.log('Not verified otp');
+        this.route.navigate(['/user/otpverify']);
+      }
+    } else {
       this.route.navigate(['/login']);
       return false;
     }

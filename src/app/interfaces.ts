@@ -97,6 +97,13 @@ export interface appliedJobData {
   candidateId: string;
   status: string;
 }
+export interface appliedLatestData {
+  _id: string;
+  jobId: string;
+  candidateId: string;
+  date: Date;
+  time: number;
+}
 export interface appliedData {
   candidateId: {
     _id: string;

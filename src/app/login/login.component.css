@@ -293,3 +293,7 @@ input[type='text']:placeholder {
 #icon {
   width: 60%;
 }
+
+span {
+  color: red;
+}

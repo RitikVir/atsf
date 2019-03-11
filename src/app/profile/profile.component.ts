@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GetCandidateService } from '../get-candidate.service';
 import { ActivatedRoute } from '@angular/router';
 import { candidateData } from '../interfaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +14,8 @@ export class ProfileComponent implements OnInit {
   myProfile: candidateData;
   constructor(
     private getAllCandidateService: GetCandidateService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -25,5 +27,12 @@ export class ProfileComponent implements OnInit {
   }
   getFileUrl(fileName) {
     return `http://localhost:8000/api/candidate/getassets/${fileName}`;
+  }
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
+  login() {
+    this.router.navigate(['/login']);
   }
 }

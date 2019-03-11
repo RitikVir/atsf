@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GetjobService } from '../../getjob.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -10,7 +10,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AddCategoryComponent implements OnInit {
   formgroup = new FormGroup({
-    category: new FormControl()
+    category: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2)
+    ])
   });
   constructor(
     private getAllJobService: GetjobService,
@@ -24,6 +27,7 @@ export class AddCategoryComponent implements OnInit {
       .subscribe(data => {
         if (data.status == 'true') {
           this.toastr.success('Category Added');
+          this.formgroup.reset();
         }
       });
   }
